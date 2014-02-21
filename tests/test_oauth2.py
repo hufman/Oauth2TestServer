@@ -1,6 +1,7 @@
 from nose.tools import *
 from oauth2testserver import oauth2
 from urlparse import parse_qs, urlparse
+import json
 
 class TestClients:
 	def setup(self):
@@ -123,8 +124,7 @@ class TestAccessTokens:
 		token_request = {'client_id':'hi', 'client_secret':'password',
 		                 'grant_type':'authorization_code', 'code':code}
 		resp = oauth2.token(token_request)
-		parsed_resp = parse_qs(resp)
-		token_data = dict([(k,d[0]) for k,d in parsed_resp.items()])
+		token_data = json.loads(resp)
 		assert_in('access_token', token_data)
 		assert_in('expires_in', token_data)
 		assert_in('token_type', token_data)
@@ -150,8 +150,7 @@ class TestAccessTokens:
 		token_request = {'client_id':client_id, 'client_secret':client_secret,
 		                 'grant_type':'authorization_code', 'code':code}
 		resp = oauth2.token(token_request)
-		parsed_resp = parse_qs(resp)
-		token_data = dict([(k,d[0]) for k,d in parsed_resp.items()])
+		token_data = json.loads(resp)
 		assert_in('access_token', token_data)
 		assert_in('expires_in', token_data)
 		assert_in('token_type', token_data)
@@ -174,8 +173,7 @@ class TestAccessTokens:
 		token_request = {'client_id':'hi', 'client_secret':'password',
 		                 'grant_type':'authorization_code', 'code':code}
 		resp = oauth2.token(token_request)
-		parsed_resp = parse_qs(resp)
-		token_data = dict([(k,d[0]) for k,d in parsed_resp.items()])
+		token_data = json.loads(resp)
 		assert_in('access_token', token_data)
 		assert_in('expires_in', token_data)
 		assert_in('token_type', token_data)
@@ -199,8 +197,7 @@ class TestAccessTokens:
 		token_request = {'client_id':'hi', 'client_secret':'password',
 		                 'grant_type':'authorization_code', 'code':code}
 		resp = oauth2.token(token_request)
-		parsed_resp = parse_qs(resp)
-		token_data = dict([(k,d[0]) for k,d in parsed_resp.items()])
+		token_data = json.loads(resp)
 		assert_in('access_token', token_data)
 		assert_in('expires_in', token_data)
 		assert_in('token_type', token_data)
@@ -224,8 +221,7 @@ class TestAccessTokens:
 		token_request = {'client_id':'hi', 'client_secret':'password',
 		                 'grant_type':'authorization_code', 'code':code}
 		resp = oauth2.token(token_request)
-		parsed_resp = parse_qs(resp)
-		token_data = dict([(k,d[0]) for k,d in parsed_resp.items()])
+		token_data = json.loads(resp)
 		assert_in('access_token', token_data)
 		assert_in('expires_in', token_data)
 		assert_in('token_type', token_data)
@@ -237,8 +233,7 @@ class TestAccessTokens:
 		code = self.get_code('hi', access_type='offline')
 		token_request['code'] = code
 		resp = oauth2.token(token_request)
-		parsed_resp = parse_qs(resp)
-		token_data = dict([(k,d[0]) for k,d in parsed_resp.items()])
+		token_data = json.loads(resp)
 		assert_in('access_token', token_data)
 		assert_in('expires_in', token_data)
 		assert_in('token_type', token_data)
@@ -256,8 +251,7 @@ class TestAccessTokens:
 		token_request = {'client_id':'hi', 'client_secret':'password',
 		                 'grant_type':'authorization_code', 'code':code}
 		resp = oauth2.token(token_request)
-		parsed_resp = parse_qs(resp)
-		token_data = dict([(k,d[0]) for k,d in parsed_resp.items()])
+		token_data = json.loads(resp)
 		assert_in('access_token', token_data)
 		assert_in('expires_in', token_data)
 		assert_in('token_type', token_data)
@@ -270,8 +264,7 @@ class TestAccessTokens:
 		                           approval_prompt='force')
 		token_request['code'] = code
 		resp = oauth2.token(token_request)
-		parsed_resp = parse_qs(resp)
-		token_data = dict([(k,d[0]) for k,d in parsed_resp.items()])
+		token_data = json.loads(resp)
 		assert_in('access_token', token_data)
 		assert_in('expires_in', token_data)
 		assert_in('token_type', token_data)
@@ -287,8 +280,7 @@ class TestAccessTokens:
 		token_request = {'client_id':'hi', 'client_secret':'password',
 		                 'grant_type':'authorization_code', 'code':code}
 		resp = oauth2.token(token_request)
-		parsed_resp = parse_qs(resp)
-		token_data = dict([(k,d[0]) for k,d in parsed_resp.items()])
+		token_data = json.loads(resp)
 		assert_in('access_token', token_data)
 		assert_in('expires_in', token_data)
 		assert_in('token_type', token_data)
@@ -309,8 +301,7 @@ class TestAccessTokens:
 		token_request = {'client_id':'hi', 'client_secret':'password',
 		                 'grant_type':'refresh_token', 'refresh_token':refresh_token}
 		resp = oauth2.token(token_request)
-		parsed_resp = parse_qs(resp)
-		token_data = dict([(k,d[0]) for k,d in parsed_resp.items()])
+		token_data = json.loads(resp)
 		assert_in('access_token', token_data)
 		assert_in('expires_in', token_data)
 		assert_in('token_type', token_data)

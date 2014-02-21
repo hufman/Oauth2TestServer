@@ -6,6 +6,7 @@ import random
 import string
 import urllib
 from .virtualdict import VirtualDict
+import json
 
 def load_clients(filename):
 	try:
@@ -145,7 +146,7 @@ def token(form):
 		refresh_token = get_token()
 		client_refresh[f['client_id']] = refresh_token
 		params['refresh_token'] = refresh_token
-	return urllib.urlencode(params)
+	return json.dumps(params)
 
 def validate_access_token(access_token):
 	global client_access
