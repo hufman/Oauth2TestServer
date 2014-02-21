@@ -50,7 +50,7 @@ def create_client():
 	client_secret = get_token()
 	add_client(client_id, client_secret)
 	response = {'client_id':client_id, 'client_secret':client_secret}
-	return urllib.urlencode(response)
+	return json.dumps(response)
 
 def add_client(client_id, client_secret):
 	global post_clients

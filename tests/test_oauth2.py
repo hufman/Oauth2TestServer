@@ -8,11 +8,11 @@ class TestClients:
 		oauth2.clear()
 	def test_create(self):
 		result = oauth2.create_client()
-		data = parse_qs(result)
+		data = json.loads(result)
 		assert_in('client_id', data)
 		assert_in('client_secret', data)
-		client_id = data['client_id'][0]
-		client_secret = data['client_secret'][0]
+		client_id = data['client_id']
+		client_secret = data['client_secret']
 		assert_true(len(client_id) > 5, "id too short: %s"%(client_id,))
 		assert_true(len(client_secret) > 10, "secret too short: %s"%(client_secret,))
 		assert_in(client_id, oauth2.clients)
@@ -141,9 +141,9 @@ class TestAccessTokens:
 
 	def test_create_random(self):
 		result = oauth2.create_client()
-		data = parse_qs(result)
-		client_id = data['client_id'][0]
-		client_secret = data['client_secret'][0]
+		data = json.loads(result)
+		client_id = data['client_id']
+		client_secret = data['client_secret']
 
 		code = self.get_code(client_id)
 
