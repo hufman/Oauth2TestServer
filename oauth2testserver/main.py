@@ -58,7 +58,12 @@ def del_refresh_token():
 
 @get('/validate')
 def validate():
-	return oauth2.validate_access_token(request.query.token)
+	if 'access_token' in request.query:
+		return oauth2.validate_access_token(request.query.access_token)
+	if 'Authorization' in request.headers and 'Bearer' in request.headers['Authorization']:
+		token = request.headers['Authorization'].split(' ', 1)[1]
+		return oauth2.validate_access_token(token)
+	abort(401, 'Missing parameters: access_token')
 
 if __name__ == '__main__':
 	run(host='0.0.0.0', port=9873, debug=True)
