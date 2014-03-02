@@ -30,9 +30,32 @@ def del_client():
 @get('/auth')
 def auth():
 	return redirect(oauth2.auth(request.query))
+@delete('/auth')
+def unauth():
+	if 'client_id' not in request.forms.keys():
+		abort(400, 'Missing parameters: client_id')
+	oauth2.unauth(request.forms['client_id'])
 @post('/token')
 def token():
 	return oauth2.token(request.forms)
+
+@delete('/token')
+def del_token():
+	if 'client_id' not in request.forms.keys():
+		abort(400, 'Missing parameters: client_id')
+	oauth2.del_access_token(request.forms['client_id'])
+	oauth2.del_refresh_token(request.forms['client_id'])
+@delete('/accesstoken')
+def del_access_token():
+	if 'client_id' not in request.forms.keys():
+		abort(400, 'Missing parameters: client_id')
+	oauth2.del_access_token(request.forms['client_id'])
+@delete('/refreshtoken')
+def del_refresh_token():
+	if 'client_id' not in request.forms.keys():
+		abort(400, 'Missing parameters: client_id')
+	oauth2.del_refresh_token(request.forms['client_id'])
+
 @get('/validate')
 def validate():
 	return oauth2.validate_access_token(request.query.token)

@@ -107,6 +107,10 @@ def auth(query):
 		params['state'] = q['state']
 	return url + "?" + urllib.urlencode(params)
 
+def unauth(client_id):
+	if client_id in client_auth:
+		del client_auth[client_id]
+
 def token(form):
 	""" Trades in an auth code, given a dict with form params
 	    Required params:
@@ -147,6 +151,13 @@ def token(form):
 		client_refresh[f['client_id']] = refresh_token
 		params['refresh_token'] = refresh_token
 	return json.dumps(params)
+
+def del_access_token(client_id):
+	if client_id in client_access:
+		del client_access[client_id]
+def del_refresh_token(client_id):
+	if client_id in client_refresh:
+		del client_refresh[client_id]
 
 def validate_access_token(access_token):
 	global client_access
